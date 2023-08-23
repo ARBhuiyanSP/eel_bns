@@ -111,6 +111,15 @@
                 <span class="sub_menu_text_design"> Packages</span>
             </a>
              <?php    } ?>
+			    
+            <?php
+            
+                if(check_permission('project-list')){ ?>
+                    <a class="dropdown-item" href="supplier_entry.php">
+                <i class="fa fa-bullseye" aria-hidden="true" style="color: #007BFF;"></i>
+                <span class="sub_menu_text_design"> Supplier</span>
+            </a>
+             <?php    } ?>
 
             
          
