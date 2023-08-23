@@ -52,7 +52,7 @@ if (isset($_POST['receive_submit']) && !empty($_POST['receive_submit'])) {
         $material_name      = $_POST['material_name'][$count];
         $material_id        = $_POST['material_id'][$count];
         $unit               = $_POST['unit'][$count];
-        $part_no            = $_POST['part_no'][$count];
+        //$part_no            = $_POST['part_no'][$count];
         $quantity           = $_POST['quantity'][$count];
         $no_of_material     = $no_of_material+$quantity;
         $unit_price         = $_POST['unit_price'][$count];
@@ -80,7 +80,7 @@ if (isset($_POST['receive_submit']) && !empty($_POST['receive_submit'])) {
 		
 		
                
-        $query = "INSERT INTO `inv_receivedetail` (`mrr_no`,`material_id`,`material_name`,`unit_id`,`receive_qty`,`unit_price`,`sl_no`,`total_receive`,`part_no`,`project_id`,`warehouse_id`,`approval_status`) VALUES ('$mrr_no','$material_id','$material_name','$unit','$quantity','$unit_price','1','$totalamount','$part_no','$project_id','$warehouse_id','$approval_status')";
+        $query = "INSERT INTO `inv_receivedetail` (`mrr_no`,`material_id`,`material_name`,`unit_id`,`receive_qty`,`unit_price`,`sl_no`,`total_receive`,`project_id`,`warehouse_id`,`approval_status`) VALUES ('$mrr_no','$material_id','$material_name','$unit','$quantity','$unit_price','1','$totalamount','$project_id','$warehouse_id','$approval_status')";
         $conn->query($query);
 		
 		$lastinsertedId =  mysqli_insert_id($conn);
@@ -107,11 +107,11 @@ if (isset($_POST['receive_submit']) && !empty($_POST['receive_submit'])) {
         $jvno           = $mrr_no;  
 //$created_at = date();		
         
-        $query_inmb = "INSERT INTO `inv_materialbalance` (`mb_ref_id`,`mb_materialid`,`mb_date`,`mbin_qty`,`mbin_val`,`mbout_qty`,`mbout_val`,`mbprice`,`mbtype`,`mbserial`,`mbserial_id`,`mbunit_id`,`jvno`,`part_no`,`project_id`,`warehouse_id`,`approval_status`) VALUES ('$mb_ref_id','$mb_materialid','$mb_date','$mbin_qty','$mbin_val','$mbout_qty','$mbout_val','$mbprice','$mbtype','$mbserial','$mbunit_id','$unit','$jvno','$part_no','$project_id','$warehouse_id','$approval_status')";
+        $query_inmb = "INSERT INTO `inv_materialbalance` (`mb_ref_id`,`mb_materialid`,`mb_date`,`mbin_qty`,`mbin_val`,`mbout_qty`,`mbout_val`,`mbprice`,`mbtype`,`mbserial`,`mbserial_id`,`mbunit_id`,`jvno`,`project_id`,`warehouse_id`,`approval_status`) VALUES ('$mb_ref_id','$mb_materialid','$mb_date','$mbin_qty','$mbin_val','$mbout_qty','$mbout_val','$mbprice','$mbtype','$mbserial','$mbunit_id','$unit','$jvno','$project_id','$warehouse_id','$approval_status')";
         $conn->query($query_inmb);
 		
 		
-		 $queryPro = "INSERT INTO `inv_product_price`(`mrr_no`,`material_id`, `receive_details_id`, `qty`, `price`,`part_no`, `status`) VALUES ('$mb_ref_id','$mb_materialid','$lastinsertedId','$mbin_qty','$mbprice','$part_no','1')";
+		 $queryPro = "INSERT INTO `inv_product_price`(`mrr_no`,`material_id`, `receive_details_id`, `qty`, `price`, `status`) VALUES ('$mb_ref_id','$mb_materialid','$lastinsertedId','$mbin_qty','$mbprice','1')";
          $conn->query($queryPro);
 		
 		
@@ -127,7 +127,7 @@ if (isset($_POST['receive_submit']) && !empty($_POST['receive_submit'])) {
     /*
     *  Insert Data Into inv_receive Table:
     */
-    $query2 = "INSERT INTO `inv_receive` (`mrr_no`,`mrr_date`,`purchase_id`,`receive_acct_id`,`supplier_id`,`postedtogl`,`remarks`,`receive_type`,`project_id`,`warehouse_id`,`receive_unit_id`,`receive_total`,`no_of_material`,`challanno`,`challan_date`,`part_no`,`requisitionno`,`requisition_date`,`received_by`,`approval_status`,`approved_by`,`approved_at`,`approval_remarks`,`mrr_image`) VALUES ('$mrr_no','$mrr_date','$purchase_id','6-14-010','$supplier_id','0','$remarks','Credit','$project_id','$warehouse_id','1','$receive_total','$no_of_material','$challan_no','$challan_date','$part_no','$requisition_no','$requisition_date','$received_by','$approval_status','$approved_by','$approved_at','$approval_remarks','$mrr_image')";
+    $query2 = "INSERT INTO `inv_receive` (`mrr_no`,`mrr_date`,`purchase_id`,`receive_acct_id`,`supplier_id`,`postedtogl`,`remarks`,`receive_type`,`project_id`,`warehouse_id`,`receive_unit_id`,`receive_total`,`no_of_material`,`challanno`,`challan_date`,`requisitionno`,`requisition_date`,`received_by`,`approval_status`,`approved_by`,`approved_at`,`approval_remarks`,`mrr_image`) VALUES ('$mrr_no','$mrr_date','$purchase_id','6-14-010','$supplier_id','0','$remarks','Credit','$project_id','$warehouse_id','1','$receive_total','$no_of_material','$challan_no','$challan_date','$requisition_no','$requisition_date','$received_by','$approval_status','$approved_by','$approved_at','$approval_remarks','$mrr_image')";
     $result2 = $conn->query($query2);    
     /*
     *  Insert Data Into inv_supplierbalance Table:

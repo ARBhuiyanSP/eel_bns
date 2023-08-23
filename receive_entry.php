@@ -160,7 +160,6 @@
                                 <th width="30%">Material Name<span class="reqfield"> ***required</span></th>
                                 <th>Material ID</th>
                                 <th width="10%">Unit</th>
-                                <th>Part No</th>
                                 <th>Qty<span class="reqfield"> ***required</span></th>
                                 <th>Unit Price<span class="reqfield"> ***req</span></th>
                                 <th>Amount</th>
@@ -199,7 +198,6 @@
                                                 ?>
                                             </select>
                                         </td>
-                                        <td><input type="text" name="part_no[]" id="part_no0" class="form-control" readonly></td>
                                         <td><input type="text" name="quantity[]" id="quantity0" onchange="sum(0)" class="form-control" required></td>
                                         <td><input type="text" name="unit_price[]" id="unit_price0" onchange="sum(0)" class="form-control" required></td>
                                         <td><input type="text" name="totalamount[]" id="sum0" class="form-control"></td>
@@ -255,7 +253,7 @@
                                                     foreach ($projectsData as $data) {
                                                         ?><option value="<?php echo $data['id']; ?>"><?php echo $data['unit_name']; ?></option><?php }
                                                 }
-                                                ?></select></td><td><input type="text" name="part_no[]" id="part_no' + i + '" class="form-control" readonly></td><td><input type="text" name="quantity[]" id="quantity' + i + '" onchange="sum(0)" class="form-control" required></td><td><input type="text" name="unit_price[]" id="unit_price' + i + '" onchange="sum(0)" class="form-control" required></td><td><input type="text" name="totalamount[]" id="sum' + i + '" class="form-control"></td><td><button type="button" name="remove" id="' + i + '" class="btn btn_remove" style="background-color:#f26522;color:#ffffff;">X</button></td></tr>');
+                                                ?></select></td><td><input type="text" name="quantity[]" id="quantity' + i + '" onchange="sum(0)" class="form-control" required></td><td><input type="text" name="unit_price[]" id="unit_price' + i + '" onchange="sum(0)" class="form-control" required></td><td><input type="text" name="totalamount[]" id="sum' + i + '" class="form-control"></td><td><button type="button" name="remove" id="' + i + '" class="btn btn_remove" style="background-color:#f26522;color:#ffffff;">X</button></td></tr>');
 												$(".material_select_2").select2();
 												$('#quantity' + i + ', #unit_price' + i).change(function () {
                 sum(i)
