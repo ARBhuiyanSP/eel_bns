@@ -248,11 +248,11 @@
                 <span>Movement Reports</span></a>
         </li>
     <?php } ?>
-<?php if(check_permission('equipment-history')){ ?>
-	<li class="nav-item">
-        <a class="nav-link" href="equipments-history.php">
+<?php if(check_permission('material-receive-history')){ ?>
+		<li class="nav-item">
+        <a class="nav-link" href="supplier_ledger.php">
             <i class="fa fa-registered" aria-hidden="true" style="color: #007BFF;"></i>
-            <span>Equips.History Report</span></a>
+            <span>Supplier Ledger</span></a>
     </li>
 <?php } ?>
 <?php if(check_permission('material-history')){ ?>
