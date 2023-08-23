@@ -6,15 +6,15 @@ if (isset($_GET['process_type']) && $_GET['process_type'] == "equipment_wise_iss
     include '../helper/utilities.php';
 
 
-    $use_in = $_POST['use_in'] ?? '';
-    $sql=" SELECT round(SUM(t1.issue_qty),2) AS _issue_qty,SUM(round(t1.issue_qty,2)*round(t1.issue_price,2)) AS _total_price,DATE_FORMAT(t1.issue_date, '%m') as _month,DATE_FORMAT(t1.issue_date, '%y') as _year, MONTHNAME(t1.issue_date) as _m_name,t1.use_in
+    $package_id = $_POST['package_id'] ?? '';
+    $sql=" SELECT round(SUM(t1.issue_qty),2) AS _issue_qty,SUM(round(t1.issue_qty,2)*round(t1.issue_price,2)) AS _total_price,DATE_FORMAT(t1.issue_date, '%m') as _month,DATE_FORMAT(t1.issue_date, '%y') as _year, MONTHNAME(t1.issue_date) as _m_name,t1.package_id
 FROM inv_issuedetail AS t1
 WHERE (t1.issue_date > now() - INTERVAL 11 month ) ";
-if($use_in !=''){
-    $sql.=" AND t1.use_in='".$use_in."' ";
+if($package_id !=''){
+    $sql.=" AND t1.package_id='".$package_id."' ";
     $sql.=" GROUP BY YEAR(t1.issue_date),MONTH(t1.issue_date) ORDER BY YEAR(t1.issue_date),MONTH(t1.issue_date) ASC ";
 }else{
-    $sql.=" GROUP BY YEAR(t1.issue_date),MONTH(t1.issue_date) ORDER BY YEAR(t1.issue_date),MONTH(t1.issue_date),t1.use_in ASC ";
+    $sql.=" GROUP BY YEAR(t1.issue_date),MONTH(t1.issue_date) ORDER BY YEAR(t1.issue_date),MONTH(t1.issue_date),t1.package_id ASC ";
 }
 
 

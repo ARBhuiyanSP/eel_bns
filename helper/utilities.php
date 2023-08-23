@@ -787,7 +787,7 @@ function show_issue_details_data($item_details)
                 <th>Issue Date</th>
                 <th>Issue No</th>
                 <th width="30%">Material Name</th>
-                <th>Use in</th>
+                <th>Packages</th>
                 <th>Project</th>
                 <th>Ware House</th>
                 <th>Action</th>
@@ -820,7 +820,7 @@ function show_issue_details_data($item_details)
                     $sql = "select * from `inv_issuedetail` where `issue_id`='$issue_id'";
 
 
-                    $user_categories = mysqli_query($conn, "select `use_in` from `inv_issuedetail` where `issue_id`='$issue_id'");
+                    $user_categories = mysqli_query($conn, "select `package_id` from `inv_issuedetail` where `issue_id`='$issue_id'");
                     $category_ids = mysqli_fetch_all($user_categories, MYSQLI_NUM);
                     $category_ids_imploded = implode(', ', array_map(function ($entry) {
                         return $entry['0'];
@@ -844,13 +844,13 @@ function show_issue_details_data($item_details)
                     <td>
                         <span><a class="action-icons c-approve" href="issue-view.php?no=<?php echo $item['issue_id']; ?>" title="View"><i class="fas fa-eye text-success"></i></a></span>
                         <?php if(check_permission('material-issue-edit')){ ?>
-                        <span><a class="action-icons c-delete" href="issue_edit.php?edit_id=<?php echo $item['id']; ?>" title="edit"><i class="fa fa-edit text-info mborder"></i></a></span>
+                        <!-- <span><a class="action-icons c-delete" href="issue_edit.php?edit_id=<?php echo $item['id']; ?>" title="edit"><i class="fa fa-edit text-info mborder"></i></a></span> -->
                         <?php } ?>
                        <?php if(check_permission('material-issue-approve')){ ?>
                             <span><a class="action-icons c-delete" href="issue_approve.php?issue=<?php echo $item['issue_id']; ?>" title="approve"><i class="fa fa-check text-info mborder"></i></a></span>
                         <?php } ?>
                          <?php if(check_permission('material-issue-delete')){ ?>
-                        <span><a class="action-icons c-delete" href="#" title="delete"><i class="fa fa-trash text-danger"></i></a></span>
+                        <!-- <span><a class="action-icons c-delete" href="#" title="delete"><i class="fa fa-trash text-danger"></i></a></span> -->
                         <?php } ?>
                     </td>
                     </tr>

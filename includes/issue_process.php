@@ -40,9 +40,10 @@ if (isset($_POST['issue_submit']) && !empty($_POST['issue_submit'])) {
 				$material_id        = $_POST['material_id'][$count];
 				$product_price_id   = $_POST['product_price_id'][$count];
 				$unit               = $_POST['unit'][$count];
-				$part_no            = $_POST['part_no'][$count];
+				//$part_no            = $_POST['part_no'][$count];
 				$unit_price         = $_POST['unit_price'][$count];
 				$quantity           = $_POST['quantity'][$count];
+				$package_id           = $_POST['package_id'][$count];
 				$use_in          	= $_POST['use_in'];
 				$total_amount       = $_POST['sub_total_amount'];
 				$remarks            = $_POST['remarks']; 
@@ -87,7 +88,7 @@ if (isset($_POST['issue_submit']) && !empty($_POST['issue_submit'])) {
 
     			/* insert in inv_issuedetail table*/
         
-				$query = "INSERT INTO `inv_issuedetail` (`issue_id`,`issue_date`,`material_id`,`material_name`,`unit`,`issue_qty`,`issue_price`,`part_no`,`use_in`,`project_id`,`warehouse_id`,`approval_status`) VALUES ('$issue_id','$issue_date','$material_id','$material_name','$unit','$quantity','$unit_price','$part_no','$use_in','$project_id','$warehouse_id','0')";
+				$query = "INSERT INTO `inv_issuedetail` (`issue_id`,`issue_date`,`material_id`,`material_name`,`unit`,`issue_qty`,`issue_price`,`part_no`,`use_in`,`project_id`,`warehouse_id`,`package_id`,`approval_status`) VALUES ('$issue_id','$issue_date','$material_id','$material_name','$unit','$quantity','$unit_price','$part_no','$use_in','$project_id','$warehouse_id','$package_id','0')";
 				$conn->query($query);
 				
 				/*
@@ -107,13 +108,13 @@ if (isset($_POST['issue_submit']) && !empty($_POST['issue_submit'])) {
 				$mbserial_id    = 0;
 				$jvno           = $issue_id;             
 				
-				$query_inmb = "INSERT INTO `inv_materialbalance` (`mb_ref_id`,`mb_materialid`,`mb_date`,`mbin_qty`,`mbin_val`,`mbout_qty`,`mbout_val`,`mbprice`,`mbtype`,`mbserial`,`mbserial_id`,`mbunit_id`,`jvno`,`part_no`,`project_id`,`warehouse_id`) VALUES ('$mb_ref_id','$mb_materialid','$mb_date','$mbin_qty','$mbin_val','$mbout_qty','$mbout_val','$mbprice','$mbtype','$mbserial','$mbunit_id','$unit','$jvno','$part_no','$project_id','$warehouse_id')";
+				$query_inmb = "INSERT INTO `inv_materialbalance` (`mb_ref_id`,`mb_materialid`,`mb_date`,`mbin_qty`,`mbin_val`,`mbout_qty`,`mbout_val`,`mbprice`,`mbtype`,`mbserial`,`mbserial_id`,`mbunit_id`,`jvno`,`part_no`,`project_id`,`warehouse_id`,`package_id`) VALUES ('$mb_ref_id','$mb_materialid','$mb_date','$mbin_qty','$mbin_val','$mbout_qty','$mbout_val','$mbprice','$mbtype','$mbserial','$mbunit_id','$unit','$jvno','$part_no','$project_id','$warehouse_id','$package_id')";
 				$conn->query($query_inmb);
 			}
 			/*
 			*  Insert Data Into inv_issue Table:
 			*/
-			$query2 = "INSERT INTO `inv_issue` (`issue_id`,`issue_date`,`use_in`,`total_amount`,`remarks`,`project_id`,`warehouse_id`,`issued_by`,`issue_image`) VALUES ('$issue_id','$issue_date','$use_in','$total_amount','$remarks','$project_id','$warehouse_id','$issued_by','$issue_image')";
+			$query2 = "INSERT INTO `inv_issue` (`issue_id`,`issue_date`,`total_amount`,`remarks`,`project_id`,`warehouse_id`,`issued_by`,`issue_image`) VALUES ('$issue_id','$issue_date','$total_amount','$remarks','$project_id','$warehouse_id','$issued_by','$issue_image')";
 			$result2 = $conn->query($query2);
 			
 			$_SESSION['success']    =   "Issue process have been successfully completed.";

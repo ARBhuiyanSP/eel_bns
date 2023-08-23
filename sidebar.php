@@ -105,10 +105,10 @@
         
             <?php
             
-                if(check_permission('equipment-list')){ ?>
-                    <a class="dropdown-item" href="equipment_entry.php">
+                if(check_permission('project-list')){ ?>
+                    <a class="dropdown-item" href="package_entry.php">
                 <i class="fa fa-bullseye" aria-hidden="true" style="color: #007BFF;"></i>
-                <span class="sub_menu_text_design"> Euipments</span>
+                <span class="sub_menu_text_design"> Packages</span>
             </a>
              <?php    } ?>
 

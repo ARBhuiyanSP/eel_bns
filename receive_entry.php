@@ -31,14 +31,27 @@
                     <div class="row" id="div1" style="">
                         <div class="col-xs-2">
                             <div class="form-group">
-                                <label>Voucher Date</label>
+                                <label>MRR Date</label>
                                 <input type="text" autocomplete="off" name="mrr_date" id="mrr_date" class="form-control datepicker" value="<?php echo date('Y-m-d'); ?>">
                             </div>
                         </div>
                         <div class="col-xs-2">
                             <div class="form-group">
-                                <label>Voucher No</label>
-                                <input type="text" name="mrr_no" id="mrr_no" class="form-control" value="" required >
+                                <label>MRR No</label>
+								<?php if($_SESSION['logged']['user_type'] == 'whm')
+									{
+										$warehouse_id	=	$_SESSION['logged']['warehouse_id'];
+										$sql	=	"SELECT * FROM inv_warehosueinfo WHERE `id`='$warehouse_id'";
+										$result = mysqli_query($conn, $sql);
+										$row=mysqli_fetch_array($result);
+										$short_name = $row['short_name'];
+										$mrrcode= 'MRR-'.$short_name;
+									} else{
+										$mrrcode= 'MRR-CW';
+									}
+								?>
+                                <input type="text" name="mrr_no" id="mrr_no" class="form-control" value="<?php echo getDefaultCategoryCodeByWarehouse('inv_receive', 'mrr_no', '03d', '001', $mrrcode) ?>" readonly>
+                                <input type="hidden" name="receive_no" id="receive_no" value="<?php echo getDefaultCategoryCodeByWarehouse('inv_receive', 'mrr_no', '03d', '001', $mrrcode) ?>">
                             </div>
                         </div>
                         <div class="col-xs-2">

@@ -91,15 +91,15 @@ $(document).ready(function() {
 			<div class="com-xl-3 col-sm-6 col-md-6">
 				<?php 
 
-		$used_equipments= "SELECT DISTINCT use_in FROM inv_issuedetail ORDER BY use_in ASC";
+		$used_equipments= "SELECT DISTINCT package_id FROM inv_issuedetail ORDER BY package_id ASC";
 		$used_equipment_res = mysqli_query($conn, $used_equipments);
 			?>
 
 				<select class="form-control select2 equipment_name js-example-basic-single" name="equipment_name">
-					<option value="">Select Equipment</option>
+					<option value="">Select Package</option>
 					<?php
 					while($row = mysqli_fetch_array($used_equipment_res)){ ?>
-						<option value="<?php echo $row['use_in']; ?>"><?php echo $row['use_in']; ?></option>
+						<option value="<?php echo $row['package_id']; ?>"><?php echo $row['package_id']; ?></option>
 					<?php } ?>
 					
 				</select>
@@ -332,18 +332,18 @@ $(".stock_serach_material_name").on('change',function(){
 
 
       	 $(".equipment_name").on('change', function() {
-      		var use_in = $(this).val();
+      		var package_id = $(this).val();
       		
       		var url =  baseUrl + "function/chart_ajax.php?process_type=equipment_wise_issue";
-      		var data = {use_in};
-      		var equipment = use_in;
+      		var data = {package_id};
+      		var equipment = package_id;
       		chart_ajax_call(data,url,equipment)
       		
       	})
 
 		$(function(){
 			var url =  baseUrl + "function/chart_ajax.php?process_type=equipment_wise_issue";
-      		var data = {use_in:''};
+      		var data = {package_id:''};
       		var equipment = '';
       		chart_ajax_call(data,url,equipment);
 		})
@@ -357,7 +357,7 @@ $(".stock_serach_material_name").on('change',function(){
 			        success: function(response) {
 			            console.log(response);
 			            var container_id="equipmentWiseIssue";
-			            var chart_title = equipment+" Equipment Wise Material Issue";
+			            var chart_title = equipment+" Package Wise Material Issue";
 			            var chart_subtitle='';
 			            var am_tk ="Tk";
 			            var chart_categories = response.equipment_months;
