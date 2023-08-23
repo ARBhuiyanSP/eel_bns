@@ -85,10 +85,28 @@
                                 <input type="text" class="form-control" id="item_name" placeholder="name" name="name" required>
                             </div>
                         </div> </br>
+                        
                         <div class="form-group">
-                            <label class="control-label col-sm-5" for="name">Part No:</label>
+                            <label class="control-label col-sm-5" for="name">Brand Name:</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" id="part_no" placeholder="part_no" name="part_no">
+                                <input type="text" class="form-control" id="brand_name" placeholder="brand name" name="brand_name">
+                            </div>
+                        </div> </br>
+						<div class="form-group">
+                            <label class="control-label col-sm-5" for="parent_code">Type:</label>
+                            <div class="col-sm-7">
+                                <select class="form-control" id="type" name="type">
+                                    <option value="">Select</option>
+                                    <option value="CIVIL">CIVIL</option>
+									<option value="ELECTRICAL">ELECTRICAL</option>
+									<option value="MACHANICAL">MACHANICAL</option>
+									<option value="SANITARY">SANITARY</option>
+									<option value="HARDWARE">HARDWARE</option>
+									<option value="HARDWARE">STATIONARY</option>
+									<option value="HARDWARE">SAFETY</option>
+									<option value="HARDWARE">PAINT</option>
+									<option value="HARDWARE">CROCKERIES</option>
+                                </select>
                             </div>
                         </div> </br>
                         <div class="form-group">

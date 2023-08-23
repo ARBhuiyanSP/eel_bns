@@ -41,8 +41,6 @@ if(!check_permission('material-list')){
                                             <th>Equipt.Brand</th>
                                             <th width="10%">Material id</th>
                                             <th>Name</th>
-                                            <th width="8%">Part no</th>
-                                            <th width="8%">Old Part</th>
                                             <th width="7%">Specification</th>
                                             <th width="5%">Unit</th>
                                         </tr>
@@ -69,9 +67,7 @@ if(!check_permission('material-list')){
                                                         </button>
                 <?php } ?>
 
-                                                        <button title="Add New Part No" type="button" class="btn btn-sm btn-info" onclick="addNewPartNumberModal('<?php echo $item['id']; ?>');">
-                                                           <i class="fa fa-plus" aria-hidden="true"></i>
-                                                        </button>
+                                                       
                                                     </td>
                                                     <td>
                                                         <?php 
@@ -87,8 +83,6 @@ if(!check_permission('material-list')){
                                                     </td>
                                                     <td><?php echo $item['material_id_code']; ?></td>
                                                     <td><?php echo $item['material_description']; ?></td>
-                                                    <td><?php echo $item['part_no']; ?></td>
-                                                    <td><?php echo $item["old_part_no"];?></td>
                                                     <td><?php echo $item['spec']; ?></td>
                                                     <td><?php echo getDataRowByTableAndId('inv_item_unit', $item['qty_unit'])->unit_name; ?></td>
                                                    
