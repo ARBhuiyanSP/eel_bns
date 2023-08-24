@@ -72,7 +72,6 @@ if(isset($_GET['submit'])){
 							<th style="text-align:center">Voucher No</th>
 							<th style="text-align:center">Challan No</th>
 							<th style="text-align:center">Material Name</th>
-							<th style="text-align:center">Part No</th>
 							<th style="text-align:center">Specs</th>
 							<th style="text-align:center">Unit</th>
 							<th style="text-align:center">QTY</th>
@@ -117,8 +116,6 @@ if(isset($_GET['submit'])){
 							?>
 							</td>
 							
-							
-							<td style="text-align:center"><?php echo $rowall['part_no']; ?></td>
 							
 							
 							<?php 
