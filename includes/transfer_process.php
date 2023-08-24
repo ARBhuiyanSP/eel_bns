@@ -31,23 +31,45 @@ if (isset($_POST['transfer_submit']) && !empty($_POST['transfer_submit'])) {
         /*
          *  Insert Data Into inv_transferdetail Table:
         */ 
-        $transfer_date           = $_POST['transfer_date'];
-        $transfer_id             = $_POST['transfer_id'];
-        $from_warehouse      = $_POST['from_warehouse'];
-        $to_warehouse         = $_POST['to_warehouse'];
+        $transfer_date		= $_POST['transfer_date'];
+        $transfer_id		= $_POST['transfer_id'];
+        $from_warehouse   	= $_POST['from_warehouse'];
+        $to_warehouse     	= $_POST['to_warehouse'];
 		
-
-
         $material_name      = $_POST['material_name'][$count];
         $material_id        = $_POST['material_id'][$count];
+		$product_price_id   = $_POST['product_price_id'][$count];
         $unit               = $_POST['unit'][$count];
         $quantity           = $_POST['quantity'][$count];
         $no_of_material     = $no_of_material+$quantity;
 		
-        $remarks            = $_POST['remarks'];        
+		
+		$unit_price         = $_POST['unit_price'][$count];
+        $totalamount        = $_POST['totalamount'][$count];
+		
+		
+		
+        $remarks            = $_POST['remarks'];  
+
+		/* Update Qty in inv_product_price table*/
+
+		$sqlGetPrice = "select * from `inv_product_price` where `id`='$product_price_id'";
+		$resultGetPrice = mysqli_query($conn, $sqlGetPrice);
+		$rowGetPrice = mysqli_fetch_array($resultGetPrice);
+
+		$oldQty = $rowGetPrice['qty'];
+		$newQty = $oldQty - $quantity;
+
+		$queryUpdateQty    = "UPDATE `inv_product_price` SET `qty`='$newQty' WHERE `id`='$product_price_id'";
+		$conn->query($queryUpdateQty);
+		
+				
+
+		/* Update Qty in inv_product_price table*/
                
-        $query = "INSERT INTO `inv_tranferdetail` (`transfer_id`,`material_id`,`material_name`,`transfer_qty`,`unit`,`type`,`inwarehouse`,`outwarehouse`) VALUES ('$transfer_id','$material_id','$material_name','$quantity','$unit','1','$to_warehouse','$from_warehouse')";
+        $query = "INSERT INTO `inv_tranferdetail` (`transfer_id`,`material_id`,`material_name`,`transfer_qty`,`transfer_price`,`unit`,`type`,`inwarehouse`,`outwarehouse`) VALUES ('$transfer_id','$material_id','$material_name','$quantity','$unit_price','$unit','1','$to_warehouse','$from_warehouse')";
         $conn->query($query);
+		$lastinsertedId =  mysqli_insert_id($conn);
         
         /*
          *  Insert Data Into inv_materialbalance Table:
@@ -67,11 +89,18 @@ if (isset($_POST['transfer_submit']) && !empty($_POST['transfer_submit'])) {
         $conn->query($query_outmb);
 		
 		
+		
 		$mbin_in_qty       	= $quantity;
         $mbin_out_qty      	= 0;
         $mbfrom_type		= 'Transfer In';
         $query_inmb = "INSERT INTO `inv_materialbalance` (`mb_ref_id`,`mb_materialid`,`mb_date`,`mbin_qty`,`mbin_val`,`mbout_qty`,`mbout_val`,`mbprice`,`mbtype`,`mbserial`,`mbserial_id`,`mbunit_id`,`jvno`, `warehouse_id`) VALUES ('$mb_ref_id','$mb_materialid','$mb_date','$mbin_in_qty','$mbin_val','$mbin_out_qty','$mbout_val','$mbprice','$mbfrom_type','$mbserial','$mbunit_id','$mbserial_id','$jvno','$to_warehouse')";
         $conn->query($query_inmb);
+		
+		
+		
+				/* insert Qty in inv_product_price table*/
+		       $queryPro = "INSERT INTO `inv_product_price`(`mrr_no`,`material_id`, `receive_details_id`, `qty`, `price`,`project_id`,`warehouse_id`, `status`) VALUES ('$transfer_id','$material_id','$lastinsertedId','$mbin_in_qty','$unit_price','$project_id','$to_warehouse','1')";
+				$conn->query($queryPro);
     }
     /*
     *  Insert Data Into inv_transfermaster Table:

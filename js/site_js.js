@@ -674,7 +674,7 @@ function getItemCodeByParam(id, table, field, selector, qty_unit = '',this_row_t
             table: table,
             field: field,
             qty_unit: qty_unit,
-        };
+        }; 
         $.ajax({
             url: baseUrl + "includes/item_process.php?process_type=getItemCodeByParam",
             type: 'POST',

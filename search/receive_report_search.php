@@ -70,6 +70,7 @@ if(isset($_GET['submit'])){
 						<tr>
 							<th style="text-align:center">Voucher Date</th>
 							<th style="text-align:center">Voucher No</th>
+							<th style="text-align:center">Challan No</th>
 							<th style="text-align:center">Material Name</th>
 							<th style="text-align:center">Part No</th>
 							<th style="text-align:center">Specs</th>
@@ -106,6 +107,7 @@ if(isset($_GET['submit'])){
 						<tr>
 							<td style="text-align:center"><?php echo date("j M y", strtotime($row['mrr_date']));?></td>
 							<td style="text-align:center"><?php echo $rowall['mrr_no']; ?></td>
+							<td style="text-align:center"><?php echo $row['challanno']; ?></td>
 							<td style="text-align:center"><?php 
 								$mb_materialid = $rowall['material_id'];
 								$sqlname	=	"SELECT * FROM `inv_material` WHERE `material_id_code` = '$mb_materialid' ";

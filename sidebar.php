@@ -210,6 +210,7 @@
         </div>
     </li>
     <?php } ?>
+
 	<li class="nav-item" style="background-color:#007BFF;">
         <span class="nav-link" href="#">
             <i class="fa fa-bars" aria-hidden="true" style="color: #FFF;"></i>

@@ -111,7 +111,7 @@ if (isset($_POST['receive_submit']) && !empty($_POST['receive_submit'])) {
         $conn->query($query_inmb);
 		
 		
-		 $queryPro = "INSERT INTO `inv_product_price`(`mrr_no`,`material_id`, `receive_details_id`, `qty`, `price`, `status`) VALUES ('$mb_ref_id','$mb_materialid','$lastinsertedId','$mbin_qty','$mbprice','1')";
+		 $queryPro = "INSERT INTO `inv_product_price`(`mrr_no`,`material_id`, `receive_details_id`, `qty`, `price`,`project_id`,`warehouse_id`, `status`) VALUES ('$mb_ref_id','$mb_materialid','$lastinsertedId','$mbin_qty','$mbprice','$project_id','$warehouse_id','1')";
          $conn->query($queryPro);
 		
 		

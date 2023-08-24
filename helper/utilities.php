@@ -409,8 +409,9 @@ function get_unit_price_by_material_id($param)
 function get_lot_price_by_material_id($code)
 {
     global $conn;
-	$sql = "SELECT `id`, `mrr_no`, `material_id`, `receive_details_id`, `qty`, `price`, `status`
-	FROM `inv_product_price` WHERE material_id = '$code' ";
+	$warehouse_id   =   $_SESSION['logged']['warehouse_id'];
+    $sql = "SELECT `id`, `mrr_no`, `material_id`, `receive_details_id`, `qty`, `price`, `status`
+	FROM `inv_product_price` WHERE material_id = '$code' AND warehouse_id = '$warehouse_id' ";
     $result = $conn->query($sql);
 	$dataContainer ="<option value=''>-Select-</option>";
 	 if ($result->num_rows > 0) {
