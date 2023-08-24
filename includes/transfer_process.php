@@ -105,7 +105,7 @@ if (isset($_POST['transfer_submit']) && !empty($_POST['transfer_submit'])) {
     /*
     *  Insert Data Into inv_transfermaster Table:
     */
-    $query2 = "INSERT INTO `inv_transfermaster` (`transfer_id`,`transfer_date`,`from_warehouse`,`to_warehouse`,`remarks`) VALUES ('$transfer_id','$transfer_date','$from_warehouse','$to_warehouse','$remarks')";
+    $query2 = "INSERT INTO `inv_transfermaster` (`transfer_id`,`transfer_date`,`no_of_material`,`totalamount`,`from_warehouse`,`to_warehouse`,`remarks`) VALUES ('$transfer_id','$transfer_date','$no_of_material','$totalamount','$from_warehouse','$to_warehouse','$remarks')";
     $result2 = $conn->query($query2);    
   
     
