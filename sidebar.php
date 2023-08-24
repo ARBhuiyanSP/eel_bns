@@ -210,6 +210,18 @@
         </div>
     </li>
     <?php } ?>
+	     <?php if(check_permission('material-issue-list')){ ?>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-server" aria-hidden="true" style="color: #007BFF;"></i>
+            <span>Material Return</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="inv_return_entry.php"><i class="fa fa-plus" aria-hidden="true" style="color: #007BFF;"></i><span class="sub_menu_text_design">Material Return</span></a>
+            <a class="dropdown-item" href="issue-list.php"><i class="fa fa-list" aria-hidden="true" style="color: #007BFF;"></i><span class="sub_menu_text_design">Return List</span></a>
+        </div>
+    </li>
+    <?php } ?>
 		     <?php if(check_permission('material-issue-list')){ ?>
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
