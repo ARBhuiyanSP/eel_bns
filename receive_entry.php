@@ -94,7 +94,7 @@
                         <div class="col-xs-2">
                             <div class="form-group">
                                 <label for="id">Supplier</label><span class="reqfield"> ***required</span>
-                                <select class="form-control" id="supplier_name" name="supplier_name" required onchange="getItemCodeByParam(this.value, 'suppliers', 'code', 'supplier_id');">
+                                <select class="form-control material_select_2" id="supplier_name" name="supplier_name" required onchange="getItemCodeByParam(this.value, 'suppliers', 'code', 'supplier_id');">
                                     <option value="">Select</option>
                                     <?php
                                     $projectsData = getTableDataByTableName('suppliers');

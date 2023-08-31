@@ -709,6 +709,95 @@ function getItemCodeByParam(id, table, field, selector, qty_unit = '',this_row_t
     }
 }
 
+function getReturnItemCodeByParam(id, table, field, selector, qty_unit = '',this_row_this='') {
+    var this_row_this= this_row_this;
+    console.log(this_row_this)
+    if (id) {
+        $('#quantity0').val('');
+        var materialTotalStockId = 'material_total_stock0';
+        var materialLastPrice = 'unit_price0';
+        var product_return_price_id = 'product_return_price_id0';
+        
+        var paramDetails = {
+            id: id,
+            table: table,
+            field: field,
+            qty_unit: qty_unit,
+        }; 
+        $.ajax({
+            url: baseUrl + "includes/item_process.php?process_type=getReturnItemCodeByParam",
+            type: 'POST',
+            dataType: 'json',
+            data: paramDetails,
+            async:true,
+            success: function(response) {
+                
+
+                console.log(response);
+                $('#' + selector).val(response.data);
+                $('#' + product_return_price_id).html(response.priceDetails);
+                
+               // $('#' + materialTotalStockId).val(response.totalStock);
+               // $('#' + materialLastPrice).val(response.unitPrice);
+                if (qty_unit) {
+                    $('#unit0').val(response.qty_unit);
+                }
+                if (response.brand_name) {
+                    $('#brand0').val(response.brand_name);
+                }
+                if (response.part_no) {
+                    $('#part_no0').val(response.part_no);
+                }
+               
+               
+            }
+        });
+    } else {
+        $('#quantity0').val('');
+        $('#' + selector).val('');
+    }
+}
+
+function getAppendReturnItemCodeByParam(id, table, field, selector, qty_unit = '') {
+    $('#quantity' + id).val('');
+    var materialId = $('#material_name' + id).val();
+    var fieldSelector = selector + id;
+    var materialTotalStockId = 'material_total_stock' + id;
+    var materialLastPrice = 'unit_price' + id;
+    var product_return_price_id = 'product_return_price_id'+id;
+    if (id) {
+        var paramDetails = {
+            id: materialId,
+            table: table,
+            field: field,
+            qty_unit: qty_unit,
+        };
+        $.ajax({
+            url: baseUrl + "includes/item_process.php?process_type=getReturnItemCodeByParam",
+            type: 'POST',
+            dataType: 'json',
+            data: paramDetails,
+            success: function(response) {
+                $('#' + fieldSelector).val(response.data);
+                $('#' + product_return_price_id).html(response.priceDetails);
+               // $('#' + materialTotalStockId).val(response.totalStock);
+                //$('#' + materialLastPrice).val(response.unitPrice);
+                if (qty_unit) {
+                    $('#unit' + id).val(response.qty_unit);
+                }
+                if (response.brand_name) {
+                    $('#brand' + id).val(response.brand_name);
+                }
+                if (response.part_no) {
+                    $('#part_no' + id).val(response.part_no);
+                }
+            }
+        });
+    } else {
+        $('#' + selector).val('');
+    }
+}
+
 function getAppendItemCodeByParam(id, table, field, selector, qty_unit = '') {
     $('#quantity' + id).val('');
     var materialId = $('#material_name' + id).val();
@@ -855,6 +944,39 @@ function showFormIsProcessing(formId) {
     }
 }
 
+
+$(document).on("change",".product_return_price_id",function(){
+    var this_row_this=$(this);
+    var price_row_id = $(this).closest("tr").find(".product_return_price_id").val();
+    return_price_details_show(price_row_id,this_row_this);
+   
+})
+
+
+function return_price_details_show(price_row_id,this_row_this){
+    console.log(this_row_this)
+     $.ajax({
+            url: baseUrl + "includes/item_process.php?process_type=getIssueDetailByPriceId",
+            type: 'POST',
+            dataType: 'json',
+            data: {price_row_id},
+            success: function(response) {
+                var data = response?.data;
+                var part_no = data?.part_no;
+                var issue_price = data?.issue_price;
+                var issue_qty = data?.issue_qty;
+                //var receive_details_id = data?.receive_details_id;
+                var issue_id = data?.issue_id;
+                var material_id = data?.material_id;
+               
+                this_row_this.closest("tr").find("input[name='part_no[]']").val(part_no);
+                this_row_this.closest("tr").find("input[name='material_total_stock[]']").val(issue_qty);
+                this_row_this.closest("tr").find("input[name='unit_price[]']").val(issue_price);
+              
+               
+            }
+        });
+}
 
 $(document).on("change",".product_price_id",function(){
     var this_row_this=$(this);

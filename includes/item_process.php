@@ -965,6 +965,26 @@ if(isset($_GET['process_type']) && $_GET['process_type'] == 'get_category_code')
     echo json_encode($feedback);
 }
 
+if(isset($_GET['process_type']) && $_GET['process_type'] == 'getIssueDetailByPriceId'){
+    session_start();
+    include '../connection/connect.php';
+    include '../helper/utilities.php';
+    $price_row_id = $_POST['price_row_id'];
+
+   $result_data= getDetailByPriceId("inv_issuedetail",$price_row_id);
+
+    $feedback   =   [
+        'status'    =>  'success',
+        'data'   =>  $result_data,
+    ];    
+    echo json_encode($feedback);
+
+
+
+
+}
+
+
 if(isset($_GET['process_type']) && $_GET['process_type'] == 'getDetailByPriceId'){
     session_start();
     include '../connection/connect.php';
@@ -1013,6 +1033,44 @@ if(isset($_GET['process_type']) && $_GET['process_type'] == 'getDetailByPriceId'
         'message'   =>  'Found Code',
         'data'      =>  $code,
 		'priceDetails'      =>  $priceDetails,
+        'qty_unit'  =>  $qty_unit,
+       // 'totalStock'  =>  $totalStock,
+       // 'unitPrice'  =>  $unitPrice,
+        'brand_name'  =>  (isset($materialData->brand_name) && !empty($materialData->brand_name) ? $materialData->brand_name : ''),
+        'part_no'  =>  (isset($materialData->part_no) && !empty($materialData->part_no) ? $materialData->part_no : ''),
+    ];    
+    echo json_encode($feedback);
+}
+
+    if(isset($_GET['process_type']) && $_GET['process_type'] == 'getReturnItemCodeByParam'){
+    session_start();
+    include '../connection/connect.php';
+    include '../helper/utilities.php';
+    $qty_unit   =   '';
+    $table      =   $_POST['table']." where id=".$_POST['id'];
+    $field      =   $_POST['field'];
+    $code       = getItemCodeByParam($table, $field);
+    if(isset($_POST['qty_unit']) && !empty($_POST['qty_unit'])){
+        $qty_unit   = getItemCodeByParam($table, 'qty_unit');
+    }
+
+    // get material informtion for brand name:
+    $materialData           =   getDataRowIdAndTable($table);
+    
+    // Get Opening quantity:
+    $param                  =   [];
+    $param['mb_materialid'] =   $code;
+    $param['warehouse_id']  =   $_SESSION['logged']['warehouse_id'];
+    
+    $totalStock     =   get_product_stock_by_material_id($param);
+    $unitPrice      =   get_unit_price_by_material_id($param);
+    $priceDetails   =   get_Issuelot_price_by_material_id($code);
+    
+    $feedback   =   [
+        'status'    =>  'success',
+        'message'   =>  'Found Code',
+        'data'      =>  $code,
+        'priceDetails'      =>  $priceDetails,
         'qty_unit'  =>  $qty_unit,
        // 'totalStock'  =>  $totalStock,
        // 'unitPrice'  =>  $unitPrice,

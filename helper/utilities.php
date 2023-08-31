@@ -421,6 +421,22 @@ function get_lot_price_by_material_id($code)
     }
     return $dataContainer;
 }
+
+function get_Issuelot_price_by_material_id($code)
+{
+    global $conn;
+    $sql = "SELECT `id`, `issue_id`, `material_id`, `issue_qty`, `issue_price`
+    FROM `inv_issuedetail` WHERE material_id = '$code' ";
+    $result = $conn->query($sql);
+    $dataContainer ="<option value=''>-Select-</option>";
+     if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+                $dataContainer .="<option value='".$row["id"]."'>".$row["issue_id"]."|".$row["issue_qty"]."|".$row["issue_price"]."</option>";
+            }
+    }
+    return $dataContainer;
+}
+
 function get_material_last_price($param)
 {
     global $conn;
