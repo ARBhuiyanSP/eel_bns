@@ -17,7 +17,7 @@
 							<td>
 								<div class="form-group">
 									<label for="id">Supplier</label>
-									<select class="form-control select2" id="supplier_name" name="supplier_name" required onchange="getItemCodeByParam(this.value, 'suppliers', 'code', 'supplier_id');">
+									<select class="form-control material_select_2" id="supplier_name" name="supplier_name" required onchange="getItemCodeByParam(this.value, 'suppliers', 'code', 'supplier_id');">
 										<option value="">Select</option>
 										<?php
 										$projectsData = getTableDataByTableName('suppliers');
