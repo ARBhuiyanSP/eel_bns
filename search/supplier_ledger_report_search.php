@@ -167,14 +167,14 @@ if(isset($_GET['submit'])){
 						</tr>
 						<?php } ?>
 						<tr>
-							<td colspan="3" class="grand_total">Total:</td>
+							<td colspan="3" class="grand_total">Sub Total:</td>
 							<td><?php echo $totalQty; ?></td>
 							<td></td>
 							<td><?php echo $totalAmount; ?></td>
 						</tr>
 						<?php } ?>
 						<tr>
-							<td colspan="3" class="grand_total">Total:</td>
+							<td colspan="3" class="grand_total">Grand Total:</td>
 							<td><?php echo $grandQty; ?></td>
 							<td></td>
 							<td><?php echo $grandTotal; ?></td>
