@@ -115,7 +115,7 @@ if(isset($_GET['submit'])){
 					</thead>
 					<tbody>
 						<?php
-							$$grandQty =0;
+							$grandQty =0;
 							$grandTotal =0;
 							$sql	=	"SELECT * FROM `inv_receive` where `supplier_id`='$supplier_id' AND `warehouse_id` = '$warehouse_id' AND `mrr_date` BETWEEN '$from_date' AND '$to_date';";
 							$result = mysqli_query($conn, $sql);
